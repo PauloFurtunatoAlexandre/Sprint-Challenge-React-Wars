@@ -29,16 +29,10 @@ const App = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const pageForward = () => {
-    // if(pageNumber > 9) {
-    //   return pageNumber;
-    // }
     setPageNumber(pageNumber + 1);
   }
 
   const pageBackkWard = () => {
-    // if(pageNumber < 0) {
-    //   return pageNumber
-    // }
     setPageNumber(pageNumber - 1);
   }
 
