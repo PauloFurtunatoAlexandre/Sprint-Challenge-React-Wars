@@ -35,15 +35,15 @@ const MainCardHolder = (props) => {
           return (
             <Card key={index}>
               <Name>{character.name}</Name>
-              <Data>Height: {character.height}</Data>
-              <Data>Mass: {character.mass}</Data>
-              <Data>Hair Color: {character.hair_color}</Data>
-              <Data>Skin Color: {character.skin_color}</Data>
-              <Data>Eye Color: {character.eye_color}</Data>
-              <Data>Birth Year: {character.birth_year}</Data>
-              <Data>Gender: {character.gender}</Data>
+              <Data><strong>Height:</strong> {character.height}</Data>
+              <Data><strong>Mass:</strong> {character.mass}</Data>
+              <Data><strong>Hair Color:</strong> {character.hair_color}</Data>
+              <Data><strong>Skin Color:</strong> {character.skin_color}</Data>
+              <Data><strong>Eye Color:</strong> {character.eye_color}</Data>
+              <Data><strong>Birth Year:</strong> {character.birth_year}</Data>
+              <Data><strong>Gender:</strong> {character.gender}</Data>
               <Data>
-                Homeworld:{" "}
+              <strong>Homeworld:</strong>{" "}
                 <a href={character.homeworld} target="_blank">
                   Click Here
                 </a>
