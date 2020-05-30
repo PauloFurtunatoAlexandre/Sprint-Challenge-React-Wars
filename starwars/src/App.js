@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import axios from "axios";
 import MainCardHolder from "./MainCardHolder";
 import MainFilter from "./MainFilter";
+import Pagination from "./Pagination";
 
 const Opacity = keyframes`
   from {
@@ -25,19 +26,36 @@ const App = () => {
   const [characters, setChararacter] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchresults, setSearchResults] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const pageForward = () => {
+    // if(pageNumber > 9) {
+    //   return pageNumber;
+    // }
+    setPageNumber(pageNumber + 1);
+  }
+
+  const pageBackkWard = () => {
+    // if(pageNumber < 0) {
+    //   return pageNumber
+    // }
+    setPageNumber(pageNumber - 1);
+  }
 
   const charFilter = event => {
     setSearchTerm(event.target.value);
   };
 
+  //loading page
   useEffect(() => {
     axios
-      .get("https://swapi.py4e.com/api/people")
+      .get(`https://swapi.py4e.com/api/people/?page=${pageNumber}`)
       .then(response => {
         setChararacter(response.data.results);
       })
       .catch(error => console.log(error));
-  }, []);
+      console.log(characters)
+  }, [pageNumber]);
 
   //search functionality
   useEffect(() => {
@@ -53,6 +71,10 @@ const App = () => {
       <MainHeader
         src="https://www.freepnglogos.com/uploads/star-wars-logo-png-8.png"
         alt="Logo Star Wars"
+      />
+      <Pagination 
+        pageForward={pageForward}
+        pageBackkWard={pageBackkWard}
       />
       <MainFilter charFilter={charFilter} />
       <MainCardHolder 
