@@ -1,17 +1,64 @@
-import React from 'react';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import styled, { keyframes } from "styled-components";
+import axios from "axios";
+import MainCardHolder from "./MainCardHolder";
+import MainFilter from "./MainFilter";
+
+const Opacity = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const MainHeader = styled.img`
+  margin: 60px auto;
+  height: 140px;
+  animation: ${Opacity} 10s;
+`;
 
 const App = () => {
-  // Try to think through what state you'll need for this app before starting. Then build out
-  // the state properties here.
+  const [characters, setChararacter] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchresults, setSearchResults] = useState([]);
 
-  // Fetch characters from the API in an effect hook. Remember, anytime you have a 
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
+  const charFilter = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  useEffect(() => {
+    axios
+      .get("https://swapi.py4e.com/api/people")
+      .then(response => {
+        setChararacter(response.data.results);
+      })
+      .catch(error => console.log(error));
+  }, []);
+
+  //search functionality
+  useEffect(() => {
+    const results = characters.filter(character => {
+      return character.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    setSearchResults(results);
+  }, [characters, searchTerm]);
 
   return (
     <div className="App">
-      <h1 className="Header">Characters</h1>
+      <MainHeader
+        src="https://www.freepnglogos.com/uploads/star-wars-logo-png-8.png"
+        alt="Logo Star Wars"
+      />
+      <MainFilter charFilter={charFilter} />
+      <MainCardHolder 
+        characters={characters}
+        searchresults= {searchresults} 
+      />
     </div>
   );
 }
