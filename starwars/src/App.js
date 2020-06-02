@@ -49,7 +49,13 @@ const App = () => {
       })
       .catch(error => console.log(error));
       console.log(characters)
-  }, [pageNumber]);
+
+      axios.get(`https://swapi.py4e.com/api/people/?search=${searchTerm}`)
+      .then(response => {
+        setChararacter(response.data.results);
+      })
+      .catch(error => console.log(error));
+  }, [searchTerm, pageNumber]);
 
   //search functionality
   useEffect(() => {

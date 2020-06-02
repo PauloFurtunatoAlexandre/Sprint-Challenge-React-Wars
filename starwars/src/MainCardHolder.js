@@ -31,7 +31,7 @@ const Data = styled.p`
 
 const MainCardHolder = (props) => {
   
-  const { characters, setChararacter, searchTerm, setSearchTerm, searchresults, setSearchResults } = props;
+  const { searchresults } = props;
 
     return (
         <CardHolder>
